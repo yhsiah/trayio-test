@@ -5,13 +5,14 @@ module.exports = {
   'Log in to Tray.io': browser => {
     var loginPage = browser.page.login();
     var dashboard = browser.page.dashboard();
+    var data = browser.globals;
 
     loginPage
       .navigate()
       .waitForElementVisible('@usernameInput')
       .waitForElementVisible('@passwordInput')
-      .setValue('@usernameInput', 'yhsiah90@gmail.com')
-      .setValue('@passwordInput', 'Password1')
+      .setValue('@usernameInput', data.login.username)
+      .setValue('@passwordInput', data.login.password)
       .click('@loginButton')
 
     dashboard

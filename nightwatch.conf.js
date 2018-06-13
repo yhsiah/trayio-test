@@ -5,7 +5,7 @@ module.exports = {
   "src_folders": "tests",
   "page_objects_path": "pages",
   "output_folder": "reports",
-  // "globals_path": "./data",
+  "globals_path": "data/testData.js",
   "selenium": {
     "start_process": true,
     "server_path": seleniumServer.path,
