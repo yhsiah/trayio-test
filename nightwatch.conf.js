@@ -3,7 +3,7 @@ const chromedriver = require("chromedriver");
 
 module.exports = {
   "src_folders": "tests",
-  "page_objects_path": "pages",
+  // "page_objects_path": "pages",
   "output_folder": "reports",
   // "globals_path": "./data",
   "selenium": {
