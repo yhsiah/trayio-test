@@ -3,73 +3,98 @@ var config = require('../nightwatch.conf.js');
 module.exports = {
 
   'Log in to Tray.io': browser => {
+    var loginPage = browser.page.login();
+    var dashboard = browser.page.dashboard();
 
-    browser
-      .url('https://app.tray.io/login')
-      .waitForElementVisible('[name="username"]')
-      .waitForElementVisible('[name="password"]')
-      .setValue('[name="username"]', 'yhsiah90@gmail.com')
-      .setValue('[name="password"]', 'Password1')
-      .click('[type="submit"]')
-      .waitForElementVisible('.Dashboard___hN1j8o', 10000)
+    loginPage
+      .navigate()
+      .waitForElementVisible('@usernameInput')
+      .waitForElementVisible('@passwordInput')
+      .setValue('@usernameInput', 'yhsiah90@gmail.com')
+      .setValue('@passwordInput', 'Password1')
+      .click('@loginButton')
+
+    dashboard
+      .waitForElementVisible('@mainView', 10000)
   },
 
   'Wait for Dashboard and open Create Workflow Modal': browser => {
+    var dashboard = browser.page.dashboard();
+    var modal = dashboard.section.createWorkflowModal;
 
-    browser
-      .waitForElementVisible('.Page-navigation-button___2nr8D6')
-      .click('.Page-navigation-button___2nr8D6')
-      .expect.element('.header___1iolq4').text.to.equal('Create Workflow').before(10000)
+    dashboard
+      .waitForElementVisible('@createWorkflowButton')
+      .click('@createWorkflowButton')
+
+    modal
+      .expect.element('@header').text.to.equal('Create Workflow').before(10000)
   },
 
   'Submit New Workflow': browser => {
+    var modal = browser.page.dashboard().section.createWorkflowModal;
 
-    browser
-      .waitForElementVisible('[name="name"]')
-      .waitForElementVisible('[title="Create"]')
-      .setValue('[name="name"]', 'Test Workflow')
-      .click('[title="Create"]')
+    modal
+      .waitForElementVisible('@nameInput')
+      .waitForElementVisible('@createButton')
+      .setValue('@nameInput', 'Test Workflow')
+      .click('@createButton')
   },
 
   'Wait for Edit Page and close': browser => {
+    var editPage = browser.page.editWorkflow();
 
-    browser
-      .expect.element('.Main-Content___1J0rCC > h1').text.to.equal('ADD A TRIGGER').before(10000);
+    editPage
+      .expect.element('@header').text.to.equal('ADD A TRIGGER').before(10000);
 
-    browser
-      .waitForElementVisible('.TriggerSelector___veF1W- > div:nth-child(1) > div:nth-child(1) > a')
-      .click('.TriggerSelector___veF1W- > div:nth-child(1) > div:nth-child(1) > a')
+    editPage
+      .waitForElementVisible('@closeButton')
+      .click('@closeButton')
   },
 
   'Wait for Dashboard and delete workflow': browser => {
+    var dashboard = browser.page.dashboard();
+    var upwardOptionsMenu = dashboard.section.upwardOptionsMenu;
+    var deleteModal = dashboard.section.deleteModal;
 
-    browser
-      .waitForElementVisible('.Page-navigation-button___2nr8D6')
-      .waitForElementVisible('.Options-menu___2xCHNh')
-      .moveToElement('.Options-menu___2xCHNh', 20, 20)
-      .waitForElementVisible('.UppwardMenu___JkA7Kl > li:nth-child(5) > a')
-      .click('.UppwardMenu___JkA7Kl > li:nth-child(5) > a')
-      .expect.element('.header___1iolq4').text.to.equal('Delete Workflow?').before(10000);
+    dashboard
+      .waitForElementVisible('@mainView')
+      .waitForElementVisible('@workflowOptionsButton')
+      .moveToElement('@workflowOptionsButton', 20, 20)
 
-    browser
-      .waitForElementVisible('div.button___20IrAn:nth-child(2)')
-      .click('div.button___20IrAn:nth-child(2)')
+    upwardOptionsMenu
+      .waitForElementVisible('@deleteButton')
+      .click('@deleteButton')
+
+    deleteModal
+      .expect.element('@header').text.to.equal('Delete Workflow?').before(10000);
+
+    deleteModal
+      .waitForElementVisible('@yesButton')
+      .click('@yesButton')
 
     },
 
     'Check worflow is deleted': browser => {
+    var dashboard = browser.page.dashboard();
 
-    browser
-      .expect.element('.My-flows-empty___3_hU3V > h2').text.to.equal("YOU DON'T HAVE ANY WORKFLOWS").before(10000);
+    dashboard
+      .expect.element('@emptyWorkflow').text.to.equal("YOU DON'T HAVE ANY WORKFLOWS").before(10000);
     },
 
     'Log out of Tray.io': browser => {
+    var dashboard = browser.page.dashboard();
+    var profileDropdown = dashboard.section.profileDropdown;
+    var loginPage = browser.page.login();
 
-    browser
-      .waitForElementVisible('.Profile-avatar___3Ezd7K')
-      .click('.Profile-avatar___3Ezd7K')
-      .waitForElementVisible('li.Profile-DropDown-item___21Tis5:nth-child(2)')
-      .click('li.Profile-DropDown-item___21Tis5:nth-child(2)')
+    dashboard
+      .waitForElementVisible('@profileAvatar')
+      .click('@profileAvatar')
+
+    profileDropdown
+      .waitForElementVisible('@logoutButton')
+      .click('@logoutButton')
+
+    loginPage
       .expect.element('.header___2dUqdY').text.to.equal('ACCOUNT LOGIN').before(10000);
 
     browser.end();
