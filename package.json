@@ -1,0 +1,27 @@
+{
+  "name": "trayio-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "nightwatch.conf.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yhsiah/trayio-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yhsiah/trayio-test/issues"
+  },
+  "homepage": "https://github.com/yhsiah/trayio-test#readme",
+  "dependencies": {
+    "chromedriver": "^2.40.0",
+    "nightwatch": "0.9.21",
+    "selenium-server": "^3.12.0"
+  }
+}
