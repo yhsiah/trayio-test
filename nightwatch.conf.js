@@ -25,7 +25,12 @@ module.exports = {
         "waitForConditionTimeout": 5000
       },
       "desiredCapabilities": {
-        "browserName": "chrome"
+        "browserName": "chrome",
+        "chromeOptions": {
+          "args": [
+            "window-size=1920,1080"
+          ]
+        }
       }
     },
     "chrome": {
