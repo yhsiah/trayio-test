@@ -18,7 +18,7 @@ clone the repository:
 
 install all dependencies:
 
-    npm Install
+    npm install
 
 And you should be good to go!
 
@@ -35,7 +35,7 @@ Potential improvements in general:
 - Use of custom commands for commonly used actions e.g. login, logout
 - Create extra config files to run tests with different configurations, e.g browser, environment, data sets
 - Make use of html reports that look pretty
-- Use tags to run specific types of tests only e.g. a tag for tests suitable for smoke test_settings
+- Use tags to run specific types of tests only e.g. a tag for tests suitable for smoke tests
 - Use directories for tests and page objects for organisational purposes if the test suite grows too large
 
 Potential improvements (specific to tray.io):
