@@ -47,4 +47,5 @@ Potential improvements (specific to this tray.io exercise):
 
 Improvements implemented:
 - Use of a random string for workflow name each time, updated assertions on create and delete to account for the specific workflow
-- Took into account bothupwards and downwards workflow menu on the dashboard view, which previously caused problems when there was >1 workflow in the view
+- Took into account both upwards and downwards workflow menu on the dashboard view, which previously caused problems when there was >1 workflow in the view
+- Test works when the user has multiple workflows now
