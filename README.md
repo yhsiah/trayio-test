@@ -44,6 +44,7 @@ Potential improvements (specific to this tray.io exercise):
 - Revisit the page object for dashboard view, as the modals use the same selectors. Perhaps there is opportunity for simplifying this here.
 - Test for the success notification on deletion of a workflow
 - Support for testing on different resolutions. This is currently forced to 1920x1080 in config due to overlapping elements on dashboard view at some lower resolutions.
+- Got a 'workflow name is invalid' error message on one test run, haven't been able to reproduce yet. Should investigate this and make sure the generated name is always valid.
 
 Improvements implemented:
 - Use of a random string for workflow name each time, updated assertions on create and delete to account for the specific workflow
