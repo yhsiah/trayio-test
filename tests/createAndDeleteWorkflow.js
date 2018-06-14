@@ -1,4 +1,5 @@
 var config = require('../nightwatch.conf.js');
+var workflowName = Math.random().toString(36).substring(2, 12);
 
 module.exports = {
 
@@ -37,7 +38,7 @@ module.exports = {
     modal
       .waitForElementVisible('@nameInput')
       .waitForElementVisible('@createButton')
-      .setValue('@nameInput', 'Test Workflow')
+      .setValue('@nameInput', workflowName)
       .click('@createButton')
   },
 
@@ -52,19 +53,40 @@ module.exports = {
       .click('@closeButton')
   },
 
-  'Wait for Dashboard and delete workflow': browser => {
+  'Check Workflow created correctly': browser => {
     var dashboard = browser.page.dashboard();
-    var upwardOptionsMenu = dashboard.section.upwardOptionsMenu;
-    var deleteModal = dashboard.section.deleteModal;
+    var workflow = dashboard.section.workflowItem;
 
     dashboard
       .waitForElementVisible('@mainView')
+
+    workflow
+      .expect.element('@title').text.to.equal(workflowName).before(5000);
+
+  },
+
+  'Delete the workflow': browser => {
+    var dashboard = browser.page.dashboard();
+    var upwardOptionsMenu = dashboard.section.upwardOptionsMenu;
+    var downwardOptionsMenu = dashboard.section.downwardOptionsMenu;
+    var deleteModal = dashboard.section.deleteModal;
+
+    dashboard
       .waitForElementVisible('@workflowOptionsButton')
       .moveToElement('@workflowOptionsButton', 20, 20)
 
-    upwardOptionsMenu
-      .waitForElementVisible('@deleteButton')
-      .click('@deleteButton')
+    upwardOptionsMenu.isVisible('@deleteButton', result => {
+      if (result.value === true) {
+        upwardOptionsMenu
+          .waitForElementVisible('@deleteButton')
+          .click('@deleteButton')
+      }
+      else {
+        downwardOptionsMenu
+          .waitForElementVisible('@deleteButton')
+          .click('@deleteButton')
+      }
+    })
 
     deleteModal
       .expect.element('@header').text.to.equal('Delete Workflow?').before(10000);
@@ -79,7 +101,7 @@ module.exports = {
     var dashboard = browser.page.dashboard();
 
     dashboard
-      .expect.element('@emptyWorkflow').text.to.equal("YOU DON'T HAVE ANY WORKFLOWS").before(10000);
+      .expect.element('@workflowDashboard').text.to.not.contain(workflowName).before(5000)
     },
 
     'Log out of Tray.io': browser => {

@@ -43,6 +43,8 @@ Potential improvements in general:
 Potential improvements (specific to this tray.io exercise):
 - Revisit the page object for dashboard view, as the modals use the same selectors. Perhaps there is opportunity for simplifying this here.
 - Test for the success notification on deletion of a workflow
-- Write something custom to use a random string for a workflow name each time. This would allow for assertions and actions on the specific created workflow.
-- Take into account both the upwards menu and downwards menu which show on the dashboard view for workflows. Looks like this behaviour is linked with having >1 workflow in the table.
 - Support for testing on different resolutions. This is currently forced to 1920x1080 in config due to overlapping elements on dashboard view at some lower resolutions.
+
+Improvements implemented:
+- Use of a random string for workflow name each time, updated assertions on create and delete to account for the specific workflow
+- Took into account bothupwards and downwards workflow menu on the dashboard view, which previously caused problems when there was >1 workflow in the view
